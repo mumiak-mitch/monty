@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(opcode, "pall") == 0)
         {
-            pall(&stack, line_number);
+            pall(&stack);
         }
         else if (strcmp(opcode, "pint") == 0)
         {
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(opcode, "nop") == 0)
         {
-            nop(&stack, line_number);
+            nop(&stack);
         }
         else
         {
