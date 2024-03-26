@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     FILE *file;
     char line[MAX_LINE_LENGTH];
     stack_t *stack = NULL;
-    unsigned int line_number = 0;
+    unsigned int num_line = 0;
     char *opcode;
 
     if (argc != 2)
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        line_number++;
+        num_line++;
         opcode = strtok(line, " \t\n");
 
         if (opcode == NULL || opcode[0] == '#')
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
         if (strcmp(opcode, "push") == 0)
         {
-            push(&stack, line_number);
+            push(&stack, num_line);
         }
         else if (strcmp(opcode, "pall") == 0)
         {
@@ -43,19 +43,19 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(opcode, "pint") == 0)
         {
-            pint(&stack, line_number);
+            pint(&stack, num_line);
         }
         else if (strcmp(opcode, "pop") == 0)
         {
-            pop(&stack, line_number);
+            pop(&stack, num_line);
         }
         else if (strcmp(opcode, "swap") == 0)
         {
-            swap(&stack, line_number);
+            swap(&stack, num_line);
         }
         else if (strcmp(opcode, "add") == 0)
         {
-            add(&stack, line_number);
+            add(&stack, num_line);
         }
         else if (strcmp(opcode, "nop") == 0)
         {
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+            fprintf(stderr, "L%u: unknown instruction %s\n", num_line, opcode);
             exit(EXIT_FAILURE);
         }
     }

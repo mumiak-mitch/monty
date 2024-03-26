@@ -11,7 +11,7 @@ void free_stack(stack_t *stack)
     }
 }
 
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, unsigned int num_line)
 {
     char *arg;
     int value;
@@ -20,7 +20,7 @@ void push(stack_t **stack, unsigned int line_number)
     arg = strtok(NULL, " \t\n");
     if (arg == NULL || !is_integer(arg))
     {
-        fprintf(stderr, "L%u: usage: push integer\n", line_number);
+        fprintf(stderr, "L%u: usage: push integer\n", num_line);
         exit(EXIT_FAILURE);
     }
 
@@ -56,24 +56,24 @@ void pall(stack_t **stack)
     }
 }
 
-void pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack, unsigned int num_line)
 {
     if (*stack == NULL)
     {
-        fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+        fprintf(stderr, "L%u: can't pint, stack empty\n", num_line);
         exit(EXIT_FAILURE);
     }
 
     printf("%d\n", (*stack)->n);
 }
 
-void pop(stack_t **stack, unsigned int line_number)
+void pop(stack_t **stack, unsigned int num_line)
 {
     stack_t *temp;
 
     if (*stack == NULL)
     {
-        fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+        fprintf(stderr, "L%u: can't pop an empty stack\n", num_line);
         exit(EXIT_FAILURE);
     }
 
@@ -86,13 +86,13 @@ void pop(stack_t **stack, unsigned int line_number)
     free(temp);
 }
 
-void swap(stack_t **stack, unsigned int line_number)
+void swap(stack_t **stack, unsigned int num_line)
 {
     stack_t *first, *second;
 
     if (*stack == NULL || (*stack)->next == NULL)
     {
-        fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
+        fprintf(stderr, "L%u: can't swap, stack too short\n", num_line);
         exit(EXIT_FAILURE);
     }
 
@@ -110,19 +110,19 @@ void swap(stack_t **stack, unsigned int line_number)
     *stack = second;
 }
 
-void add(stack_t **stack, unsigned int line_number)
+void add(stack_t **stack, unsigned int num_line)
 {
     int result;
     /*stack_t *temp;*/
 
     if (*stack == NULL || (*stack)->next == NULL)
     {
-        fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
+        fprintf(stderr, "L%u: can't add, stack too short\n", num_line);
         exit(EXIT_FAILURE);
     }
 
     result = (*stack)->n + (*stack)->next->n;
-    pop(stack, line_number);
+    pop(stack, num_line);
     (*stack)->n = result;
 }
 
