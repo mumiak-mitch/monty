@@ -1,4 +1,3 @@
-/* opcode_functions.c */
 #include "monty.h"
 
 void free_stack(stack_t *stack) {
@@ -12,8 +11,8 @@ void free_stack(stack_t *stack) {
 
 void push(stack_t **stack, unsigned int line_number)
 {
-    int value;
     char *arg = strtok(NULL, " \t\n");
+    int value;
 
     if (arg == NULL || !is_integer(arg))
     {
@@ -22,6 +21,7 @@ void push(stack_t **stack, unsigned int line_number)
     }
 
     value = atoi(arg);
+
     stack_t *new_node = malloc(sizeof(stack_t));
     if (new_node == NULL)
     {
@@ -32,15 +32,18 @@ void push(stack_t **stack, unsigned int line_number)
     new_node->n = value;
     new_node->prev = NULL;
     new_node->next = *stack;
+
     if (*stack != NULL)
     {
         (*stack)->prev = new_node;
     }
+
     *stack = new_node;
 }
 
 void pall(stack_t **stack, unsigned int line_number)
 {
+    (void) line_number; 
     stack_t *current = *stack;
 
     while (current != NULL)
@@ -115,6 +118,8 @@ void add(stack_t **stack, unsigned int line_number)
 
 void nop(stack_t **stack, unsigned int line_number)
 {
+    (void) stack; 
+    (void) line_number; 
     /* This function does nothing */
 }
 
