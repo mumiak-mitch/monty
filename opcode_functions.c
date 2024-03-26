@@ -1,8 +1,10 @@
 #include "monty.h"
 
-void free_stack(stack_t *stack) {
+void free_stack(stack_t *stack)
+{
     stack_t *current = stack;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         stack_t *temp = current;
         current = current->next;
         free(temp);
@@ -11,9 +13,11 @@ void free_stack(stack_t *stack) {
 
 void push(stack_t **stack, unsigned int line_number)
 {
-    char *arg = strtok(NULL, " \t\n");
+    char *arg;
     int value;
+    stack_t *new_node;
 
+    arg = strtok(NULL, " \t\n");
     if (arg == NULL || !is_integer(arg))
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
@@ -21,8 +25,7 @@ void push(stack_t **stack, unsigned int line_number)
     }
 
     value = atoi(arg);
-
-    stack_t *new_node = malloc(sizeof(stack_t));
+    new_node = malloc(sizeof(stack_t));
     if (new_node == NULL)
     {
         fprintf(stderr, "Error: malloc failed\n");
@@ -43,9 +46,9 @@ void push(stack_t **stack, unsigned int line_number)
 
 void pall(stack_t **stack, unsigned int line_number)
 {
-    (void) line_number; 
-    stack_t *current = *stack;
+    stack_t *current;
 
+    current = *stack;
     while (current != NULL)
     {
         printf("%d\n", current->n);
@@ -66,13 +69,15 @@ void pint(stack_t **stack, unsigned int line_number)
 
 void pop(stack_t **stack, unsigned int line_number)
 {
+    stack_t *temp;
+
     if (*stack == NULL)
     {
         fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
         exit(EXIT_FAILURE);
     }
 
-    stack_t *temp = *stack;
+    temp = *stack;
     *stack = (*stack)->next;
     if (*stack != NULL)
     {
@@ -83,14 +88,16 @@ void pop(stack_t **stack, unsigned int line_number)
 
 void swap(stack_t **stack, unsigned int line_number)
 {
+    stack_t *first, *second;
+
     if (*stack == NULL || (*stack)->next == NULL)
     {
         fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
         exit(EXIT_FAILURE);
     }
 
-    stack_t *first = *stack;
-    stack_t *second = first->next;
+    first = *stack;
+    second = first->next;
 
     first->next = second->next;
     if (second->next != NULL)
@@ -105,33 +112,41 @@ void swap(stack_t **stack, unsigned int line_number)
 
 void add(stack_t **stack, unsigned int line_number)
 {
+    int result;
+    stack_t *temp;
+
     if (*stack == NULL || (*stack)->next == NULL)
     {
         fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
         exit(EXIT_FAILURE);
     }
 
-    int result = (*stack)->n + (*stack)->next->n;
+    result = (*stack)->n + (*stack)->next->n;
     pop(stack, line_number);
     (*stack)->n = result;
 }
 
 void nop(stack_t **stack, unsigned int line_number)
 {
-    (void) stack; 
-    (void) line_number; 
-    /* This function does nothing */
+    // This function does nothing
+    (void)stack;
+    (void)line_number;
 }
 
-int is_integer(const char *str) {
-    if (str == NULL || *str == '\0') {
+int is_integer(const char *str)
+{
+    if (str == NULL || *str == '\0')
+    {
         return 0;
     }
-    if (*str == '-' || *str == '+') {
+    if (*str == '-' || *str == '+')
+    {
         str++;
     }
-    while (*str != '\0') {
-        if (*str < '0' || *str > '9') {
+    while (*str != '\0')
+    {
+        if (*str < '0' || *str > '9')
+        {
             return 0;
         }
         str++;
