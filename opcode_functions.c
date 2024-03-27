@@ -112,7 +112,7 @@ void swap(stack_t **stack, unsigned int num_line)
 
 void add(stack_t **stack, unsigned int num_line)
 {
-    int result;
+    int outcome;
     /*stack_t *temp;*/
 
     if (*stack == NULL || (*stack)->next == NULL)
@@ -121,9 +121,9 @@ void add(stack_t **stack, unsigned int num_line)
         exit(EXIT_FAILURE);
     }
 
-    result = (*stack)->n + (*stack)->next->n;
+    outcome = (*stack)->n + (*stack)->next->n;
     pop(stack, num_line);
-    (*stack)->n = result;
+    (*stack)->n = outcome;
 }
 
 void nop(stack_t **stack)

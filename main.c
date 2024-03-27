@@ -1,11 +1,11 @@
 #include "monty.h"
 
-#define MAX_LINE_LENGTH 1024
+#define MAX_LENGTH_LINE 1024
 
 int main(int argc, char *argv[])
 {
     FILE *file;
-    char line[MAX_LINE_LENGTH];
+    char lines[MAX_LENGTH_LINE];
     stack_t *stack = NULL;
     unsigned int num_line = 0;
     char *opcode;
@@ -23,10 +23,10 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    while (fgets(line, sizeof(line), file) != NULL)
+    while (fgets(lines, sizeof(lines), file) != NULL)
     {
         num_line++;
-        opcode = strtok(line, " \t\n");
+        opcode = strtok(lines, " \t\n");
 
         if (opcode == NULL || opcode[0] == '#')
         {
